@@ -13,7 +13,7 @@
 
 - name: Build docker image
   docker_image:
-    name: ghcr.io/skatteetaten/vagrant-hashistack-template
+    name: ghcr.io/fredrikhgrelland/terraform-nomad-test
     tag: latest
     build:
       path: /vagrant/docker
@@ -36,8 +36,8 @@
 
 - name: Archive docker image
   docker_image:
-    name: ghcr.io/skatteetaten/vagrant-hashistack-template
+    name: /fredrikhgrelland/terraform-nomad-test
     tag: latest
-    archive_path: /vagrant/dev/tmp/container-image.tar
+    archive_path: ghcr.io/vagrant/dev/tmp/container-image.tar
     source: local
   when: not container_image.stat.exists
