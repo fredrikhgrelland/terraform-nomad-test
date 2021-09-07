@@ -13,6 +13,8 @@ concurrency:
 
 jobs:
   build-and-push-image:
+    needs:
+      - release-prerequisites
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,7 +40,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=v${{ needs.release-prerequisites.outputs.next_version && needs.release-prerequisites.outputs.next_version || 'UNRELEASED'}}
+            type=raw,value=v${{ needs.release-prerequisites.outputs.next_version }}
             type=raw,value=latest
 
       - name: Build and push container image
@@ -226,6 +228,7 @@ jobs:
         run: make test
 
   release-prerequisites:
+    if: always()
     needs:
       - enforce-changelog
       - linter
@@ -237,6 +240,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Require PR label (major/minor/patch)
+        continue-on-error: ${{ github.event.type == 'scheduled'}}
         id: bump
         uses: zwaldowski/match-label-action@v2
         with:
@@ -245,7 +249,7 @@ jobs:
       - uses: rishabhgupta/split-by@v1
         id: split
         with:
-          string: ${{ steps.bump.outputs.match }}
+          string: ${{ github.event.type != 'scheduled' && steps.bump.outputs.match || 'change/patch' }}
           split-by: '/'
 
       - id: next_version
