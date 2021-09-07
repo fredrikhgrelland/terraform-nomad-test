@@ -13,8 +13,6 @@ concurrency:
 
 jobs:
   build-and-push-image:
-    needs:
-      - release-prerequisites
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,7 +38,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=raw,value=v${{ needs.release-prerequisites.outputs.next_version }}
+            type=raw,value=v${{ needs.release-prerequisites.outputs.next_version || UNRELEASED}}
             type=raw,value=latest
 
       - name: Build and push container image
@@ -228,7 +226,6 @@ jobs:
         run: make test
 
   release-prerequisites:
-    if: always()
     needs:
       - enforce-changelog
       - linter
