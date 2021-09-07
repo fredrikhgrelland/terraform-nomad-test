@@ -2,9 +2,9 @@
 
 ## 0.0.1 [UNRELEASED]
 
-###Added
+### Added
 
-###Changed
+### Changed
 
-###Fixed
+### Fixed
 
