@@ -14,7 +14,7 @@
 - name: Build docker image
   docker_image:
     name: ghcr.io/fredrikhgrelland/terraform-nomad-test
-    tag: latest
+    tag: experimental
     build:
       path: /vagrant/docker
       pull: false
@@ -37,7 +37,7 @@
 - name: Archive docker image
   docker_image:
     name: ghcr.io/fredrikhgrelland/terraform-nomad-test
-    tag: latest
+    tag: experimental
     archive_path: /vagrant/dev/tmp/container-image.tar
     source: local
   when: not container_image.stat.exists
