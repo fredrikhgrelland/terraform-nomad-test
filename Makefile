@@ -75,7 +75,6 @@ remove-tmp:
 	rm -rf ./example/**/.terraform
 	rm -rf ./example/**/.terraform.*
 	rm -rf ./example/**/terraform.*
-	mv ./.env_override ./.env_override.bak | true
 	rm -f ./*.log
 
 remove-template-example-tmp:
