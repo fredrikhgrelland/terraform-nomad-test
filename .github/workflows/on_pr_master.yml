@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   build-and-push-image:
+    if: always()
     needs:
       - release-prerequisites
     runs-on: ubuntu-latest
