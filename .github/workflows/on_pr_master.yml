@@ -240,7 +240,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Require PR label (major/minor/patch)
-        continue-on-error: ${{ github.event.type == 'scheduled'}}
+        continue-on-error: ${{ github.event_name == 'schedule' }}
         id: bump
         uses: zwaldowski/match-label-action@v2
         with:
