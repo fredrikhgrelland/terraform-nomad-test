@@ -96,6 +96,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
+    if: always()
     needs:
       - docker-auth
       - build-and-push-image
